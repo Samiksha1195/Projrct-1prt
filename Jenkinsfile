@@ -28,7 +28,10 @@ pipeline {
 
         stage('Verify Application') {
             steps {
-                sh 'curl http://localhost:8085'
+                sh '''
+                sleep 10
+                curl http://localhost:8085
+                '''
             }
         }
     }
