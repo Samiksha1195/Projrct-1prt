@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'agent'
     }
+    environment {
+        IMAGE_NAME = "Samiksha1195/prt-app:v1"
+    }
 
     stages {
 
@@ -13,7 +16,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t prt-cicd-app .'
+                sh 'docker build -t $IMAGE_NAME .'
             }
         }
         stage('Docker Hub Login') {
@@ -29,11 +32,10 @@ pipeline {
             }
         }
 
-        stage('Push Image to Docker Hub') {
+       stage('Push Docker Image') {
             steps {
-                sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
+                sh 'docker push $IMAGE_NAME'
             }
-        }
 
 
         stage('Run Docker Container') {
